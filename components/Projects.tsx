@@ -1,56 +1,78 @@
 import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Layers } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../constants';
 
 export const Projects: React.FC = () => {
   return (
-    <section id="projects" className="py-24 bg-slate-900">
+    <section id="projects" className="py-32 bg-[#030712]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Featured Projects</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-             A selection of projects that showcase my passion for building robust applications.
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="p-3 bg-indigo-500/10 rounded-2xl mb-6">
+            <Layers className="w-8 h-8 text-indigo-400" />
+          </div>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-6">
+            Selected Work
+          </h2>
+          <p className="text-slate-400 text-lg max-w-2xl">
+            Highlighting automation workflows and AI integrations that drive efficiency.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PORTFOLIO_DATA.projects.map((project) => (
-            <div key={project.id} className="group bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col h-full">
-              <div className="relative overflow-hidden aspect-video">
+            <div 
+              key={project.id} 
+              className="group relative flex flex-col bg-[#0b1121] rounded-3xl overflow-hidden border border-white/5 hover:border-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10"
+            >
+              {/* Image Container */}
+              <div className="relative h-64 overflow-hidden">
+                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-10"></div>
                 <img 
                   src={project.imageUrl} 
                   alt={project.title} 
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60" />
+                
+                {/* Tech Stack Overlay on Image */}
+                <div className="absolute top-4 right-4 z-20 flex flex-wrap gap-2 justify-end">
+                   {project.techStack.slice(0, 2).map(tech => (
+                     <span key={tech} className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-black/60 text-white backdrop-blur-md rounded-md border border-white/10">
+                       {tech}
+                     </span>
+                   ))}
+                   {project.techStack.length > 2 && (
+                      <span className="px-2 py-1 text-[10px] font-bold bg-black/60 text-white backdrop-blur-md rounded-md border border-white/10">
+                        +{project.techStack.length - 2}
+                      </span>
+                   )}
+                </div>
               </div>
-              
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
+
+              {/* Content */}
+              <div className="flex-1 p-8 flex flex-col">
+                <h3 className="font-heading text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
                   {project.description}
                 </p>
-                
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.techStack.map((tech) => (
-                    <span key={tech} className="px-2 py-1 text-xs font-medium text-indigo-300 bg-indigo-900/30 rounded-md">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
 
-                <div className="flex items-center gap-4 mt-auto">
+                <div className="flex items-center gap-4 pt-6 border-t border-white/5 mt-auto">
                   {project.demoUrl && (
-                    <a href={project.demoUrl} className="flex items-center text-sm font-medium text-white hover:text-indigo-400 transition-colors">
-                      <ExternalLink className="w-4 h-4 mr-1.5" />
-                      Live Demo
+                    <a 
+                      href={project.demoUrl} 
+                      className="flex items-center text-xs font-bold uppercase tracking-wider text-white hover:text-indigo-400 transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Project
                     </a>
                   )}
                   {project.repoUrl && (
-                    <a href={project.repoUrl} className="flex items-center text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                      <Github className="w-4 h-4 mr-1.5" />
+                    <a 
+                      href={project.repoUrl} 
+                      className="flex items-center text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-white transition-colors"
+                    >
+                      <Github className="w-4 h-4 mr-2" />
                       Code
                     </a>
                   )}

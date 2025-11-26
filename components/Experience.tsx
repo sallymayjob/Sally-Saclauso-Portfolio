@@ -4,50 +4,67 @@ import { PORTFOLIO_DATA } from '../constants';
 
 export const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Work Experience</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            My professional journey and the organizations I've contributed to.
-          </p>
+    <section id="experience" className="py-32 bg-[#050b1d] relative">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+          <div className="max-w-xl">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-6">Experience</h2>
+            <p className="text-slate-400 text-lg">My professional track record in building automation solutions.</p>
+          </div>
+          <div className="h-px bg-slate-800 flex-grow md:ml-8 mb-4"></div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 h-full w-0.5 bg-slate-800" />
+        <div className="space-y-12">
+          {PORTFOLIO_DATA.experience.map((exp, index) => (
+            <div key={exp.id} className="group relative pl-8 md:pl-0 border-l border-slate-800 md:border-none">
+              <div className="grid md:grid-cols-12 gap-8 items-start">
+                
+                {/* Period - Desktop */}
+                <div className="hidden md:block md:col-span-3 text-right pt-2">
+                  <span className="font-mono text-sm text-indigo-400 font-semibold tracking-wider uppercase">
+                    {exp.period}
+                  </span>
+                </div>
 
-          <div className="space-y-12">
-            {PORTFOLIO_DATA.experience.map((exp, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <div key={exp.id} className={`relative flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-center md:justify-between`}>
-                  {/* Timeline Dot */}
-                  <div className="absolute left-[-8px] md:left-1/2 md:transform md:-translate-x-1/2 w-4 h-4 bg-indigo-500 rounded-full border-4 border-slate-950 z-10" />
+                {/* Timeline Dot (Desktop only) */}
+                <div className="hidden md:flex md:col-span-1 justify-center pt-2">
+                  <div className="w-3 h-3 rounded-full bg-slate-800 ring-4 ring-[#050b1d] group-hover:bg-indigo-500 transition-colors duration-300"></div>
+                </div>
 
-                  {/* Spacer for layout */}
-                  <div className="w-full md:w-5/12" />
+                {/* Content */}
+                <div className="col-span-12 md:col-span-8 relative">
+                  {/* Mobile Dot */}
+                  <div className="absolute -left-[37px] top-2 w-3 h-3 rounded-full bg-slate-800 border-4 border-[#050b1d] md:hidden group-hover:bg-indigo-500 transition-colors"></div>
+                  
+                  {/* Mobile Date */}
+                  <span className="md:hidden font-mono text-xs text-indigo-400 font-bold uppercase mb-2 block">
+                    {exp.period}
+                  </span>
 
-                  {/* Content Card */}
-                  <div className="w-full md:w-5/12 pl-8 md:pl-0">
-                    <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-all duration-300 shadow-sm">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Briefcase className="w-4 h-4 text-indigo-400" />
-                        <span className="text-indigo-400 text-sm font-semibold">{exp.company}</span>
+                  <div className="glass-card p-8 rounded-2xl hover:bg-white/5 transition-all duration-300 border-l-4 border-l-transparent hover:border-l-indigo-500">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                      <h3 className="font-heading text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                        {exp.role}
+                      </h3>
+                      <div className="flex items-center text-slate-400 text-sm">
+                        <Briefcase className="w-4 h-4 mr-2" />
+                        {exp.company}
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-1">{exp.role}</h3>
-                      <span className="inline-block text-xs text-slate-500 mb-4 font-mono">{exp.period}</span>
-                      <ul className="list-disc list-outside ml-4 space-y-2 text-slate-400 text-sm leading-relaxed marker:text-indigo-500/50">
-                        {exp.description.map((desc, i) => (
-                          <li key={i}>{desc}</li>
-                        ))}
-                      </ul>
                     </div>
+                    
+                    <ul className="space-y-3">
+                      {exp.description.map((desc, i) => (
+                        <li key={i} className="text-slate-400 text-sm leading-relaxed flex items-start">
+                          <span className="mr-3 mt-1.5 w-1 h-1 rounded-full bg-indigo-500/50 flex-shrink-0"></span>
+                          {desc}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

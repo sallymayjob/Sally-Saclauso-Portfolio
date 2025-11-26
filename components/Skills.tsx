@@ -3,38 +3,51 @@ import { PORTFOLIO_DATA } from '../constants';
 
 export const Skills: React.FC = () => {
   return (
-    <section id="skills" className="py-24 bg-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technical Skills</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            A comprehensive list of technologies and tools I work with to bring ideas to life.
+    <section id="skills" className="py-32 relative bg-[#030712] overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-b from-indigo-900/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-6">
+            Tech Ecosystem
+          </h2>
+          <p className="text-slate-400 text-lg">
+            A carefully curated stack of technologies I use to build scalable, intelligent, and robust automation systems.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {['Frontend', 'Backend', 'Tools', 'AI'].map((category) => {
+        <div className="grid md:grid-cols-2 gap-8">
+          {['AI', 'Backend', 'Frontend', 'Tools'].map((category) => {
              const categorySkills = PORTFOLIO_DATA.skills.filter(s => s.category === category);
              if (categorySkills.length === 0) return null;
 
              return (
-               <div key={category} className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 hover:border-indigo-500/50 transition-colors duration-300">
-                 <h3 className="text-xl font-semibold text-white mb-6 border-b border-slate-700 pb-2">{category}</h3>
-                 <div className="space-y-5">
-                   {categorySkills.map((skill) => (
-                     <div key={skill.name}>
-                       <div className="flex justify-between mb-1">
-                         <span className="text-slate-300 font-medium text-sm">{skill.name}</span>
-                         <span className="text-slate-500 text-xs">{skill.level}%</span>
+               <div key={category} className="group relative">
+                 <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl opacity-20 group-hover:opacity-60 blur transition duration-500"></div>
+                 <div className="relative h-full bg-[#0b1121] rounded-2xl p-8 border border-white/5">
+                   <h3 className="font-heading text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                      {category}
+                   </h3>
+                   <div className="flex flex-wrap gap-3">
+                     {categorySkills.map((skill) => (
+                       <div 
+                        key={skill.name} 
+                        className="relative overflow-hidden px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all duration-300 group/chip"
+                       >
+                         <div className="flex items-center gap-2">
+                           <span className="text-slate-300 font-medium group-hover/chip:text-white transition-colors">
+                             {skill.name}
+                           </span>
+                           {/* Expert Indicator */}
+                           {skill.level > 90 && (
+                             <span className="flex h-1.5 w-1.5 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.8)]"></span>
+                           )}
+                         </div>
                        </div>
-                       <div className="w-full bg-slate-700 rounded-full h-2">
-                         <div 
-                            className="bg-indigo-500 h-2 rounded-full transition-all duration-1000 ease-out" 
-                            style={{ width: `${skill.level}%` }}
-                          />
-                       </div>
-                     </div>
-                   ))}
+                     ))}
+                   </div>
                  </div>
                </div>
              );
